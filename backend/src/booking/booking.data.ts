@@ -1,0 +1,161 @@
+export interface Booking {
+  id: string;
+  bookingNo: string;
+  customerName: string;
+  customerPhone: string;
+  siteType: "tent" | "rv" | "cabin";
+  siteName: string;
+  checkInDate: string;
+  checkOutDate: string;
+  nights: number;
+  guestCount: number;
+  status: "pending" | "confirmed" | "checkin_pending" | "completed" | "cancelled";
+  totalAmount: number;
+  createdAt: string;
+  remark: string;
+}
+
+export const siteTypeLabels: Record<string, string> = {
+  tent: "帐篷区",
+  rv: "房车区",
+  cabin: "木屋区",
+};
+
+export const statusLabels: Record<string, string> = {
+  pending: "待确认",
+  confirmed: "已确认",
+  checkin_pending: "待入住",
+  completed: "已完成",
+  cancelled: "已取消",
+};
+
+export const bookingData: Booking[] = [
+  {
+    id: "bk-001",
+    bookingNo: "CB20260607001",
+    customerName: "张伟",
+    customerPhone: "138****1234",
+    siteType: "tent",
+    siteName: "T-03 帐篷营位",
+    checkInDate: "2026-06-10",
+    checkOutDate: "2026-06-12",
+    nights: 2,
+    guestCount: 3,
+    status: "confirmed",
+    totalAmount: 560,
+    createdAt: "2026-06-05 14:30:22",
+    remark: "需靠近水源",
+  },
+  {
+    id: "bk-002",
+    bookingNo: "CB20260607002",
+    customerName: "李娜",
+    customerPhone: "139****5678",
+    siteType: "cabin",
+    siteName: "C-01 木屋A",
+    checkInDate: "2026-06-08",
+    checkOutDate: "2026-06-09",
+    nights: 1,
+    guestCount: 2,
+    status: "checkin_pending",
+    totalAmount: 880,
+    createdAt: "2026-06-06 09:15:33",
+    remark: "情侣出行",
+  },
+  {
+    id: "bk-003",
+    bookingNo: "CB20260607003",
+    customerName: "王强",
+    customerPhone: "137****9012",
+    siteType: "rv",
+    siteName: "R-05 房车营位",
+    checkInDate: "2026-06-15",
+    checkOutDate: "2026-06-18",
+    nights: 3,
+    guestCount: 4,
+    status: "pending",
+    totalAmount: 1200,
+    createdAt: "2026-06-07 10:45:10",
+    remark: "家庭出游，带小孩",
+  },
+  {
+    id: "bk-004",
+    bookingNo: "CB20260607004",
+    customerName: "刘芳",
+    customerPhone: "136****3456",
+    siteType: "tent",
+    siteName: "T-07 帐篷营位",
+    checkInDate: "2026-06-03",
+    checkOutDate: "2026-06-05",
+    nights: 2,
+    guestCount: 2,
+    status: "completed",
+    totalAmount: 480,
+    createdAt: "2026-06-01 16:20:45",
+    remark: "",
+  },
+  {
+    id: "bk-005",
+    bookingNo: "CB20260607005",
+    customerName: "陈明",
+    customerPhone: "135****7890",
+    siteType: "cabin",
+    siteName: "C-02 木屋B",
+    checkInDate: "2026-06-20",
+    checkOutDate: "2026-06-22",
+    nights: 2,
+    guestCount: 5,
+    status: "confirmed",
+    totalAmount: 1760,
+    createdAt: "2026-06-04 11:30:00",
+    remark: "朋友聚会，需加一张床",
+  },
+  {
+    id: "bk-006",
+    bookingNo: "CB20260607006",
+    customerName: "赵丽",
+    customerPhone: "134****2345",
+    siteType: "tent",
+    siteName: "T-02 帐篷营位",
+    checkInDate: "2026-06-09",
+    checkOutDate: "2026-06-11",
+    nights: 2,
+    guestCount: 1,
+    status: "checkin_pending",
+    totalAmount: 280,
+    createdAt: "2026-06-06 20:10:18",
+    remark: "独自旅行，需安静区域",
+  },
+  {
+    id: "bk-007",
+    bookingNo: "CB20260607007",
+    customerName: "孙磊",
+    customerPhone: "133****6789",
+    siteType: "rv",
+    siteName: "R-02 房车营位",
+    checkInDate: "2026-05-28",
+    checkOutDate: "2026-05-30",
+    nights: 2,
+    guestCount: 3,
+    status: "completed",
+    totalAmount: 800,
+    createdAt: "2026-05-25 08:55:22",
+    remark: "",
+  },
+  {
+    id: "bk-008",
+    bookingNo: "CB20260607008",
+    customerName: "周婷",
+    customerPhone: "132****0123",
+    siteType: "cabin",
+    siteName: "C-03 木屋C",
+    checkInDate: "2026-06-25",
+    checkOutDate: "2026-06-27",
+    nights: 2,
+    guestCount: 2,
+    status: "pending",
+    totalAmount: 1760,
+    createdAt: "2026-06-07 13:05:40",
+    remark: "纪念日，需布置房间",
+  },
+];

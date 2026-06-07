@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react";
-import { Button, ConfigProvider, Layout, Typography, theme } from "antd";
+import { ConfigProvider, Layout, Menu, Button, theme } from "antd";
 import { ApiOutlined } from "@ant-design/icons";
-import { fetchOverview } from "./api/client";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import { APP_CODE, APP_NAME, APP_THEME } from "./constants/app";
 import { REQUEST_MESSAGES } from "./constants/messages";
-import { createFallbackOverview } from "./state/dashboard";
-import type { OverviewResponse } from "./types";
-import { FeatureStrip } from "./components/FeatureStrip";
-import { MetricGrid } from "./components/MetricGrid";
-import { OperationsTable } from "./components/OperationsTable";
+import { routes } from "./routes";
+import { OverviewPage } from "./pages/OverviewPage";
+import { BookingPage } from "./pages/BookingPage";
+import { ResourcesPage } from "./pages/ResourcesPage";
+import { AnalyticsPage } from "./pages/AnalyticsPage";
 
 const { Header, Content } = Layout;
 
+function Navigation() {
+  const location = useLocation();
+  return (
+    <Menu
+      mode="horizontal"
+      selectedKeys={[location.pathname]}
+      style={{ background: "transparent", borderBottom: "none", minWidth: 400 }}
+      items={routes.map((r) => ({
+        key: r.path,
+        label: <Link to={r.path}>{r.label}</Link>,
+      }))}
+    />
+  );
+}
+
 export default function App() {
-  const [overview, setOverview] = useState<OverviewResponse>(createFallbackOverview());
-  const [notice, setNotice] = useState(REQUEST_MESSAGES.overviewFallback);
-
-  useEffect(() => {
-    fetchOverview()
-      .then((payload) => {
-        setOverview(payload);
-        setNotice("后端服务已联通，当前展示实时接口数据。");
-      })
-      .catch(() => setNotice(REQUEST_MESSAGES.overviewFallback));
-  }, []);
-
   return (
     <ConfigProvider
       theme={{
@@ -43,22 +45,18 @@ export default function App() {
             <span className="brand-code">{APP_CODE}</span>
             <h1 className="brand-title">{APP_NAME}</h1>
           </div>
-          <Button type="primary" icon={<ApiOutlined />} href={REQUEST_MESSAGES.healthPath}>API Health</Button>
+          <Navigation />
+          <Button type="primary" icon={<ApiOutlined />} href={REQUEST_MESSAGES.healthPath}>
+            API Health
+          </Button>
         </Header>
         <Content className="workspace">
-          <section className="lead-grid">
-            <article className="hero-panel">
-              <span className="pill">{notice}</span>
-              <Typography.Title level={2}>{overview.appName}</Typography.Title>
-              <p>{overview.description}</p>
-            </article>
-            <MetricGrid items={overview.kpis} />
-          </section>
-          <FeatureStrip items={overview.features} />
-          <section className="work-panel">
-            <Typography.Title level={3}>运营任务流</Typography.Title>
-            <OperationsTable records={overview.records} />
-          </section>
+          <Routes>
+            <Route path="/" element={<OverviewPage />} />
+            <Route path="/bookings" element={<BookingPage />} />
+            <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
+          </Routes>
         </Content>
       </Layout>
     </ConfigProvider>
